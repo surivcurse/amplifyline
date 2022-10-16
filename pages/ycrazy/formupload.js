@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import Head from "next/head";
-import { Slider, Button } from "@material-ui/core";
+import { Slider, Button } from "@mui/material";
 import Cropper from "react-easy-crop";
 import { generateDownload } from "../utils/cropImage";
 //import liff from '@line/liff';
