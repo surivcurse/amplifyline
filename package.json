@@ -11,6 +11,7 @@
   "dependencies": {
     "@line/liff": "^2.21.2",
     "@material-ui/core": "^4.12.4",
+    "aws-amplify": "^4.3.39",
     "next": "12.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
