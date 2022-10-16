@@ -5,7 +5,7 @@
  * @param {number} rotation - optional rotation parameter
  */
 
- const createImage = (url:any) =>
+ const createImage = (url) =>
  new Promise((resolve, reject) => {
      const image = new Image();
      image.addEventListener("load", () => resolve(image));
@@ -14,14 +14,14 @@
      image.src = url;
  });
 
-function getRadianAngle(degreeValue:any) {
+function getRadianAngle(degreeValue) {
  return (degreeValue * Math.PI) / 180;
 }
 
-export default async function getCroppedImg(imageSrc: any, pixelCrop: { width: number; height: number; x: number; y: number; }, rotation = 0) {
- const image = await createImage(imageSrc) as HTMLImageElement;
+export default async function getCroppedImg(imageSrc, pixelCrop, rotation = 0) {
+ const image = await createImage(imageSrc);
  const canvas = document.createElement("canvas");
- const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+ const ctx = canvas.getContext("2d");
 
  const maxSize = Math.max(image.width, image.height);
  const safeArea = 2 * ((maxSize / 2) * Math.sqrt(2));
@@ -61,7 +61,7 @@ export default async function getCroppedImg(imageSrc: any, pixelCrop: { width: n
  return canvas;
 }
 
-export const generateDownload = async (imageSrc: any, crop: any) => {
+export const generateDownload = async (imageSrc, crop) => {
  if (!crop || !imageSrc) {
      return;
  }

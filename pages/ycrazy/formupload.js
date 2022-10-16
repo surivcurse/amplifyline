@@ -1,47 +1,10 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import Head from "next/head";
-import type { GetServerSideProps, NextPage } from 'next';
 import { Slider, Button } from "@material-ui/core";
 import Cropper from "react-easy-crop";
-import { Point, Area } from "react-easy-crop/types";
 import { generateDownload } from "../utils/cropImage";
 //import liff from '@line/liff';
 
-
-/*export const getServerSideProps = async () => {
-	let data = {
-		displayName : "",
-		userId : ""
-	}
-
-	try {
-		await liff.init({
-			liffId:  process.env.NEXT_PUBLIC_LIFF_ID || "",  // Use own liffId
-		});
-	
-		} catch (error) {
-		console.error('liff init error', error.message);
-		}
-		if (!liff.isLoggedIn()) {
-		liff.login();
-	}
-
-	await liff.ready.then( async () => {
-		await liff.getProfile().then((profile) => {
-			data.userId = profile.userId;
-			data.displayName = profile.displayName;
-		  })
-		  .catch((err) => {
-			console.log("error", err);
-		  });;
-	})
-  
-	return {
-	  props: {
-		data,
-	  },
-	}
-  }*/
   let data = {
 	displayName : "",
 	userId : ""
@@ -82,7 +45,7 @@ const FormUploadPage  = () => {
 	},[])
 	
 
-  const inputRef = useRef<HTMLInputElement | undefined>() as React.MutableRefObject<HTMLInputElement>;;
+  const inputRef = useRef();
 
 	const triggerFileSelectPopup = () =>  {
 
@@ -92,14 +55,14 @@ const FormUploadPage  = () => {
 
   }
 
-	const [image, setImage] = useState<string>();
-	const [croppedArea, setCroppedArea] = useState<Area|null>(null);
-  const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
+	const [image, setImage] = useState();
+	const [croppedArea, setCroppedArea] = useState(null);
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
 
 
   const onCropComplete = useCallback(
-    (croppedArea: Area, croppedAreaPixels: Area) => {
+    (croppedArea , croppedAreaPixels) => {
       console.log(croppedArea, croppedAreaPixels);
       setCroppedArea(croppedAreaPixels);
     },
@@ -107,7 +70,7 @@ const FormUploadPage  = () => {
   );
 
 
-	const onSelectFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
+	const onSelectFile = async (event) => {
 		if (event.target.files && event.target.files.length > 0) {
 			const reader = new FileReader();
 			reader.readAsDataURL(event.target.files[0]);
